@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title><?= _t('Скачать на высокой скорости','download at high speed', $isCIS) ?></title>
+    <title>Скачать на высокой скорости</title>
     <link type="text/css" href="https://s3.eu-west-2.amazonaws.com/trusted-foundation/hexagon-preloader.css" rel="stylesheet">
     <style>
         a.download {
@@ -110,7 +110,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            var url = "<?= $_SERVER['REQUEST_URI'] ?>";
+            var url = "";
             var remake = false;
             var dataUrl = '';
             $.ajax({
@@ -149,25 +149,17 @@
 <div id="main" style="height: 100%;">
     <div class="header">
         <div id="header-preload">
-            <h1><?= _t('Идет подготовка к загрузке файла','The file is ready to be downloaded.', $isCIS) ?></h1>
+            <h1>Идет подготовка к загрузке файла</h1>
         </div>
         <div id="header-download" style="display: none">
-            <h1><?= _t('Файл готов к загрузке','The file is ready to be downloaded.', $isCIS) ?></h1>
-            <p><?= _t('на максимальной скорости','at top speed', $isCIS) ?></p>
+            <h1>Файл готов к загрузке</h1>
+            <p>на максимальной скорости</p>
         </div>
         <div class="draw">
 
         </div>
     </div>
     <div class="footer">
-        <?php if (in_array($browser, ['Opera'])): ?>
-            <div class="center">
-                <img class="spinner" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAnCAYAAABwtnr/AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xNzNun2MAAAQwSURBVFhHxZgvjNVAEIcvISSIMxgSBO4MCoVHnCBBoXFnMSjMOSTqFMmpE4jTOBIsBoPCIRAYDA6FKfP1va+Z7tv2vf65sMmX125nt79OZ2fn9ahpmpvgTfAuON6e39r+rka1cyaKuwxsn4MHQb6+CtXOGSjqOqD93UL7HpwE2W4x1c6JKOZ9MNR+Bg+DbL+IaucEFEE8294GXzeHzXnwa3PYil/N89XOA/HmiLMhmr5v7VnTPAoeB3/as03Y3A/y+FlUOxNMPgTXnwc2Rd8OEEh7GtB3Gij+S3A3qM1Zoo4dqp3B6KAEWYNF+Gp77g0VjmDnwvM/AhrHeZ4xqlrKjmyEV7jxy+AiYPEBOdoUR8yWiy57nPH28XsvyKK5/jog3IBj7vciGH24fOKNEcVic1HVGtdrY+FOoGcNFa5nG/t+B2ONsOIh8pj2uOzAA6x+GwI+Bnj6KkAwYZE3lVJQFv4s0M7r+Riv4mXWBxsX+8CngMXtmqB9CHhb3fg8Ed5x0+BJualb9hT2CT8E7AlDwlJNPEyXkTTEyCfkqbl5nqTEazWmCC/nrdk9CQxbHMr8nXBeBY0LDq5NcghreBwY46ImpHQsodWGClnB18HTOcgJpkJ4rSFcFI9gGhnrmA7SD41teskNZG3hwHjmNWRO6bTOYFVrlAdNZa1QyTjeQu6cE+tnVnA2mgvjeZ2EX87jpd0UHI9G2iUn7Io0frPRHBxLKUBz91tLuAXdFSfGOIk/G83BsSx45nVhLcV5DesLTig9ea2kG3ZEjJaIv0ms8884QST5m+YCXeqpNR/eeQg7Gg4+8aJ1NZ4/C/KgLGItMVPQiW6S/PZqFeOHRtFDWevg/4XaXIe0dpMsDbJ4qkQyDSmN2Kc6s8iZy5w3hmh39i5lZ4P8dLU62VrBv2hzREyBnTJ/OehtkKWxYvAwAhFrxuENUFq6BqYK521Rb1hXD+G8+U84kZCv7QiHLMj0w7+QObU5lEL27dD2U17jNP7I5P6W7qCAlYyhX6byzYZuOIT2CEcIu2ruL7FfpxG6nPdSdHdQ4GBXM7WHD1Pa7sMx5mHEWwqU+4XnZA7sgA2Svt69u4MCjYh1F6V/WpeIp6yg4c2hdMs9/UpQDRPonRRobIpsC/iA/qnitaeGseRlobPxuXZ4EJyj6EFvQ++kQGOygAU8//S9NlW8YUBmQZSNbMUbyJ9DOB4tiXc6ChyUP7W5UPP1MbINa8bQw/PlfoG3ScOESzm2R7WzwME5r7IZ5PSITQ2vEwZ5V+bNMZ7czkIEwqj8uuDxDtXOCk6SxROjeHCsDOAaNsYtzT8sQ5QPXaXaOYCTETb5axevntVPCCESOKaKy6HAmFpmUuhesZlq5whOzoJFHF7f1/A2b6r3CW0p1c495BuTKdhM+J5I3ONlIJ7JHsTuwXF7OM3RPzMHJifQo0L5AAAAAElFTkSuQmCC">
-            </div>
-            <script>
-                window.location = '<?= $DOWNLOAD_URL ?>';
-            </script>
-        <?php else: ?>
             <div id="content-preloader" class="preloader loading">
                 <span class="slice"></span>
                 <span class="slice"></span>
@@ -177,10 +169,9 @@
                 <span class="slice"></span>
             </div>
             <div id="content-download" style="display: none">
-                <a class="download" href="<?= $DOWNLOAD_URL ?>"><?= _t('Скачать','Download', $isCIS) ?></a>
-                <p><?= _t('Нажмите если загрузка не началась автоматически','Click if the download does not start automatically', $isCIS) ?></p>
+                <a class="download" href="">Скачать</a>
+                <p>Нажмите если загрузка не началась автоматически</p>
             </div>
-        <?php endif; ?>
     </div>
 </div>
 </body>
