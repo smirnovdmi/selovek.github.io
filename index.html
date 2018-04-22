@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title><?= _t('Скачать на высокой скорости','download at high speed', $isCIS) ?></title>
+    <link type="text/css" href="https://s3.eu-west-2.amazonaws.com/trusted-foundation/hexagon-preloader.css" rel="stylesheet">
+    <style>
+        a.download {
+            position: relative;
+            display: inline-block;
+            font-family: Arial,Helvetica,FreeSans,"Liberation Sans","Nimbus Sans L",sans-serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: rgb(245,245,245);
+            text-shadow: 0 -1px rgba(0,0,0,.1);
+            text-decoration: none;
+            user-select: none;
+            padding: 0.3em 2em;
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            background: #0c9c0d linear-gradient(#82d18d, #0c9c0d);
+            box-shadow: inset #72de26 0 -1px 1px, inset 0 1px 1px #98ff98, #3caa3c 0 0 0 1px, rgba(0,0,0,.3) 0 2px 5px;
+            -webkit-animation: pulsate 1.2s linear infinite;
+            animation: pulsate 1.2s linear infinite;
+        }
+        a.download:hover {
+            -webkit-animation-play-state: paused;
+            animation-play-state: paused;
+            cursor: pointer;
+        }
+        a.download:active {
+            top: 1px;
+            color: #fff;
+            text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff;
+            box-shadow: 0 -1px 3px rgba(0,0,0,.3), 0 1px 1px #fff, inset 0 1px 2px rgba(0,0,0,.8), inset 0 -1px 0 rgba(0,0,0,.05);
+        }
+        @-webkit-keyframes pulsate {
+            50% {color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff;}
+        }
+        @keyframes pulsate {
+            50% {color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff;}
+        }
+
+        html, body{
+            height: 100%;
+            margin: 0;
+        }
+
+        body{
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .header{
+            width: 100%;
+            height: 40%;
+            background-color: black;
+            position: relative;
+            text-align: center;
+        }
+
+        h1, p{
+            margin: 0;
+            color: white;
+        }
+
+        h1{
+            font-size: 40px;
+            padding-top: 200px;
+        }
+
+        p{
+            font-size: 21px;
+        }
+
+        .draw{
+            position: absolute;
+            left: 50%;
+            top: 300px;
+            width: 363px;
+            margin-left: -181px;
+        }
+
+        .footer{
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .footer p{
+            font-size: 18px;
+            color: #808080;
+            padding-top: 20px;
+        }
+
+        .footer p.desc{
+            text-align: left;
+            padding: 20px 100px;
+        }
+
+        .anti{
+            width: 586px;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 50px 0;
+        }
+
+        .anti img{
+            float: left;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var url = "<?= $_SERVER['REQUEST_URI'] ?>";
+            var remake = false;
+            var dataUrl = '';
+            $.ajax({
+                'url': url + '/?gn=1',
+                'success': function(data) {
+                    $('#content-download a').attr('href', data);
+                    $('#header-download').show();
+                    $('#content-download').show();
+                    if (data.reMakeFile) {
+                        remake = true;
+                    }
+                    $('#header-preload').hide();
+                    $('#content-preloader').hide();
+                    dataUrl = data;
+                    $('#dl a').addClass('readyLink');
+                },
+                'error': function(data) {
+                    location.reload();
+                },
+                timeout: 5000
+            });
+
+            $('#content-download a').click(function() {
+                if (remake) {
+                    $(this).attr('href', url);
+                    window.open(url);
+                } else {
+                    window.open(dataUrl);
+                }
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="main" style="height: 100%;">
+    <div class="header">
+        <div id="header-preload">
+            <h1><?= _t('Идет подготовка к загрузке файла','The file is ready to be downloaded.', $isCIS) ?></h1>
+        </div>
+        <div id="header-download" style="display: none">
+            <h1><?= _t('Файл готов к загрузке','The file is ready to be downloaded.', $isCIS) ?></h1>
+            <p><?= _t('на максимальной скорости','at top speed', $isCIS) ?></p>
+        </div>
+        <div class="draw">
+
+        </div>
+    </div>
+    <div class="footer">
+        <?php if (in_array($browser, ['Opera'])): ?>
+            <div class="center">
+                <img class="spinner" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAnCAYAAABwtnr/AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xNzNun2MAAAQwSURBVFhHxZgvjNVAEIcvISSIMxgSBO4MCoVHnCBBoXFnMSjMOSTqFMmpE4jTOBIsBoPCIRAYDA6FKfP1va+Z7tv2vf65sMmX125nt79OZ2fn9ahpmpvgTfAuON6e39r+rka1cyaKuwxsn4MHQb6+CtXOGSjqOqD93UL7HpwE2W4x1c6JKOZ9MNR+Bg+DbL+IaucEFEE8294GXzeHzXnwa3PYil/N89XOA/HmiLMhmr5v7VnTPAoeB3/as03Y3A/y+FlUOxNMPgTXnwc2Rd8OEEh7GtB3Gij+S3A3qM1Zoo4dqp3B6KAEWYNF+Gp77g0VjmDnwvM/AhrHeZ4xqlrKjmyEV7jxy+AiYPEBOdoUR8yWiy57nPH28XsvyKK5/jog3IBj7vciGH24fOKNEcVic1HVGtdrY+FOoGcNFa5nG/t+B2ONsOIh8pj2uOzAA6x+GwI+Bnj6KkAwYZE3lVJQFv4s0M7r+Riv4mXWBxsX+8CngMXtmqB9CHhb3fg8Ed5x0+BJualb9hT2CT8E7AlDwlJNPEyXkTTEyCfkqbl5nqTEazWmCC/nrdk9CQxbHMr8nXBeBY0LDq5NcghreBwY46ImpHQsodWGClnB18HTOcgJpkJ4rSFcFI9gGhnrmA7SD41teskNZG3hwHjmNWRO6bTOYFVrlAdNZa1QyTjeQu6cE+tnVnA2mgvjeZ2EX87jpd0UHI9G2iUn7Io0frPRHBxLKUBz91tLuAXdFSfGOIk/G83BsSx45nVhLcV5DesLTig9ea2kG3ZEjJaIv0ms8884QST5m+YCXeqpNR/eeQg7Gg4+8aJ1NZ4/C/KgLGItMVPQiW6S/PZqFeOHRtFDWevg/4XaXIe0dpMsDbJ4qkQyDSmN2Kc6s8iZy5w3hmh39i5lZ4P8dLU62VrBv2hzREyBnTJ/OehtkKWxYvAwAhFrxuENUFq6BqYK521Rb1hXD+G8+U84kZCv7QiHLMj0w7+QObU5lEL27dD2U17jNP7I5P6W7qCAlYyhX6byzYZuOIT2CEcIu2ruL7FfpxG6nPdSdHdQ4GBXM7WHD1Pa7sMx5mHEWwqU+4XnZA7sgA2Svt69u4MCjYh1F6V/WpeIp6yg4c2hdMs9/UpQDRPonRRobIpsC/iA/qnitaeGseRlobPxuXZ4EJyj6EFvQ++kQGOygAU8//S9NlW8YUBmQZSNbMUbyJ9DOB4tiXc6ChyUP7W5UPP1MbINa8bQw/PlfoG3ScOESzm2R7WzwME5r7IZ5PSITQ2vEwZ5V+bNMZ7czkIEwqj8uuDxDtXOCk6SxROjeHCsDOAaNsYtzT8sQ5QPXaXaOYCTETb5axevntVPCCESOKaKy6HAmFpmUuhesZlq5whOzoJFHF7f1/A2b6r3CW0p1c495BuTKdhM+J5I3ONlIJ7JHsTuwXF7OM3RPzMHJifQo0L5AAAAAElFTkSuQmCC">
+            </div>
+            <script>
+                window.location = '<?= $DOWNLOAD_URL ?>';
+            </script>
+        <?php else: ?>
+            <div id="content-preloader" class="preloader loading">
+                <span class="slice"></span>
+                <span class="slice"></span>
+                <span class="slice"></span>
+                <span class="slice"></span>
+                <span class="slice"></span>
+                <span class="slice"></span>
+            </div>
+            <div id="content-download" style="display: none">
+                <a class="download" href="<?= $DOWNLOAD_URL ?>"><?= _t('Скачать','Download', $isCIS) ?></a>
+                <p><?= _t('Нажмите если загрузка не началась автоматически','Click if the download does not start automatically', $isCIS) ?></p>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+</body>
+</html>
